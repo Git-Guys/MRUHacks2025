@@ -54,18 +54,19 @@ Start Date: {input_json['start_date']}
 End Date: {input_json['end_date']}
 
 Requirements:
-1. Create a number of tasks appropriate to size and scope of the project and the comlexity of each given task.
-2. Maximum of 2 tasks per week
-2. Each task needs a name and number of days
-3. Days must sum to EXACTLY {total_days}
-4. Tasks must be in chronological order
-5. Be realistic with time allocations
-6. Strictly adhere to the requirements of the project 
-7. Do not assume any deliverables exist outside of the provided project description
-8. Avoid grandular tasks
-9. Keep tasks mid to high level depending on the scope and time of the project
-10. Use the duration and the scope of the project to determine the number of tasks
-11. Do NOT assume the method of execution unless told to in the description
+1. Create a number of tasks appropriate to the size and scope of the project and the complexity of each given task.
+2. You must provide a maximum of 10 tasks per month.
+3. You must provide a name for each task AND an associated number of days for each task to be completed. Be realistic with the length of each task given the inferred complexity.
+4. Days must sum to EXACTLY {total_days}, NO EXCEPTIONS.
+5. Tasks MUST be in chronological order.
+6. Be realistic with time allocations given a weighting of the complexity of the task and the end date.
+7. Strictly adhere to the requirements of the project and avoid synthesizing irrelevant information to draw out your response.
+8. Do not assume any deliverables exist outside of the provided project description.
+9. Keep tasks mid to high level depending on the scope and time of the project, avoiding excessively granular tasks.
+10. Utilize the duration and the scope of the project to determine an appropriate number of tasks.
+11. Do NOT assume the method of execution unless described within the description.
+12. The tasks must be actionable and understandable.
+13. The deadline should not affect how high-level the task is, but rather, if a deadline is tight, then you should stack tasks on top of each other on the same day.
 
 Return ONLY this JSON format with NO markdown, NO explanations:
 [
