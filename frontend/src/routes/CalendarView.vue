@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
         <Header class="flex-1"></Header>
-        <button @click="makeICS" class="text-white bg-violet-950 hover:bg-blue-950 p-2 rounded w-min">Download Calendar file</button>
+        <button @click="makeICS" class="text-white bg-violet-950 hover:bg-blue-950 p-1 rounded w-min float-right">Calendar file</button>
     </div>
     <div class="w-screen">
         <vue-cal 
@@ -17,14 +17,14 @@
         >
             <!-- Override event template for month view -->
           <template #event="{ event }">
-            <div class="truncate px-1 text-sm font-semibold">
+            <div class="px-1 text-sm font-semibold min-h-12">
               {{ event.title }}
             </div>
           </template>
 
           <!-- Override event template for week view -->
           <template #event-week="{ event }">
-            <div class="truncate px-1 text-sm font-semibold">
+            <div class="truncate px-1 text-sm font-semibold min-h-12">
               {{ event.title }}
             </div>
           </template>
@@ -35,7 +35,7 @@
 
 <script setup>
     import { ref, computed, defineModel} from "vue"
-
+    import { useRouter } from "vue-router";
     import Header from "../components/Header.vue"
     import EventEdit from "../components/EventEdit.vue"
     import { useEventStore } from "../stores/events.js" 
@@ -43,7 +43,9 @@
     import { VueCal } from 'vue-cal'
     import 'vue-cal/style'
     import { generateICS } from "../lib/calendar.js"
+    
 
+    const router = useRouter();
     const eventStore = useEventStore();
     const selectedEvent = ref(null)
     console.log(eventStore.events)
@@ -54,7 +56,9 @@
             //selectedEvent.value = event.event; 
         }
     }
-
+    if (eventStore.events.length == 0) {
+    router.push("/")
+    }
     const makeICS = () => {
         const text =  generateICS(eventStore.events)
         const filename = eventStore.projectName || "events.ics";
@@ -71,3 +75,38 @@
     }
 
 </script>
+<style scoped>
+    .vuecal {
+        --vuecal-primary-color: oklch(28.3% 0.141 291.089) 
+        --vuecal-secondary-color: oklch(25.7% 0.09 281.288);
+        --vuecal-base-color: #FFFFFF;
+        --vuecal-contrast-color: #000000;
+        --vuecal-border-color: color-mix(in srgb, var(--vuecal-base-color) 8%, transparent);
+        --vuecal-header-color: var(--vuecal-base-color);
+        --vuecal-event-color: var(--vuecal-base-color)
+        --vuecal-event-border-color: currentColor;
+        --vuecal-border-radius: 6px;
+        --vuecal-height: 500px;
+        --vuecal-min-schedule-width: 0px;
+        --vuecal-min-cell-width: 0px;
+        --vuecal-transition-duration: 0.33s;
+    }
+
+    .vuecal__week
+    .vuecal__day 
+    .vc-event 
+    .vuecal__event-details  {
+        min-height: 2.5rem; /* adjust as needed */
+        display: flex;
+        align-items: center; /* center text vertically */
+        justify-content: flex-start;
+    }
+
+    /* In your component’s <style> or global stylesheet */
+    .vuecal__event {
+      min-height: 3.5em; /* makes events taller */
+      white-space: normal; /* allow text to wrap to next line */
+      line-height: 1.2;
+      padding: 4px 6px;
+    }
+</style>

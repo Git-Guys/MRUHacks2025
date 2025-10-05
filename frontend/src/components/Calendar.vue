@@ -13,7 +13,7 @@
 
 </script>
 
-<style scoped>
+<style>
     .vuecal {
         --vuecal-primary-color: oklch(28.3% 0.141 291.089) 
         --vuecal-secondary-color: oklch(25.7% 0.09 281.288);
@@ -37,5 +37,13 @@
         display: flex;
         align-items: center; /* center text vertically */
         justify-content: flex-start;
+    }
+
+    /* In your component’s <style> or global stylesheet */
+    .vuecal__event {
+      min-height: 3.5em; /* makes events taller */
+      white-space: normal; /* allow text to wrap to next line */
+      line-height: 1.2;
+      padding: 4px 6px;
     }
 </style>
