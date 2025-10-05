@@ -49,11 +49,14 @@ Start Date: {input_json['start_date']}
 End Date: {input_json['end_date']}
 
 Requirements:
-1. Create 5-10 tasks covering the full project scope
+1. Create a number of tasks appropriate to size and scope of the project and the comlexity of each given task.
+2. No minimums or maximums for task amount
 2. Each task needs a name and number of days
 3. Days must sum to EXACTLY {total_days}
-4. Tasks in chronological order
+4. Tasks must be in chronological order
 5. Be realistic with time allocations
+6. Strictly adhere to the requirements of the project 
+7. Do not assume any deliverables exist outside of the provided project description
 
 Return ONLY this JSON format with NO markdown, NO explanations:
 [
