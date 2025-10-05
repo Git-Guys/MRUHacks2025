@@ -2,14 +2,16 @@ import os
 from azure.ai.vision.imageanalysis import ImageAnalysisClient
 from azure.ai.vision.imageanalysis.models import VisualFeatures
 from azure.core.credentials import AzureKeyCredential
+from io import BytesIO
+from PIL import Image
 
 
-def extract_text_from_image(image_path=None):
+def extract_text_from_image(image_obj=None):
     """
     Extract text from an image using Azure Computer Vision OCR.
 
     Args:
-        image_path (str, optional): Path to local image file
+        image_obj (Image, optional): Image object
 
     Returns:
         dict: Contains 'text' (full extracted text) and 'lines' (list of text lines)
@@ -29,9 +31,11 @@ def extract_text_from_image(image_path=None):
 
     # Perform OCR
     try:
-        # Analyze from local file
-        with open(image_path, 'rb') as f:
-            image_data = f.read()
+        # Convert PIL Image to bytes
+        buf = BytesIO()
+        image_obj.save(buf, format="PNG") # write the image into memory
+        image_data = buf.getvalue() # get raw bytes
+
         result = client.analyze(
             image_data=image_data,
             visual_features=[VisualFeatures.READ]
@@ -62,7 +66,7 @@ def extract_text_from_image(image_path=None):
 
 if __name__ == "__main__":
     result = extract_text_from_image(
-        image_path="TEST.png"
+        image_path="MRUHacks2025/B Sum B.pdf"
     )
     print("Extracted text:")
     print(result['text'])
