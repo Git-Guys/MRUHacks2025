@@ -14,7 +14,6 @@ def intake_user_input():
     '''
     Takes the user input into the parameters.
     '''
-    print("This function is being called")
     project_name = request.form.get("projectName", "")
     start_date = request.form.get("startDate", "")
     end_date = request.form.get("endDate", "")
@@ -31,6 +30,7 @@ def intake_user_input():
     file_contents = ""
 
     if text_file:
+        print(text_file.filename)
         file_contents = parse_file(text_file)
 
     elif not text_file and description:
