@@ -4,10 +4,10 @@ from File_Parser import parse_file
 from groq_call import groq_call
 import os
 from flask_cors import CORS
+import json
 
 app = Flask(__name__)
 CORS(app)
-
 
 @app.post("/test")
 def intake_user_input():
@@ -39,14 +39,12 @@ def intake_user_input():
     elif not text_file and not description:
         return jsonify({"error": "There is no file, or it is missing a description."}), 400
 
-    llm_prompt = f"""
-    {
-          "project_name": {project_name},
-          "start_date": {start_date},
-          "end_date": {end_date},
-          "project_description": {file_contents}
+    llm_prompt = {
+        "project_name": project_name,
+        "start_date": start_date,
+        "end_date": end_date,
+        "project_description": file_contents
     }
-    """
 
     llm_response = groq_call(llm_prompt)
     return jsonify(llm_response)

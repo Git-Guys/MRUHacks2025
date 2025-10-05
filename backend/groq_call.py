@@ -34,6 +34,7 @@ class GroqTaskBreakdown:
         """
         
         # Calculate duration
+        print(input_json['start_date'])
         start = datetime.strptime(input_json['start_date'], '%Y-%m-%d')
         end = datetime.strptime(input_json['end_date'], '%Y-%m-%d')
         total_days = (end - start).days
