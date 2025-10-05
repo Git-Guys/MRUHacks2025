@@ -4,7 +4,7 @@
         @submit.prevent="submitForm"
     >
     <div v-if="errorMessage != ''"
-        class="bg-red-700 text-red-200 border border-red-200" 
+        class="bg-red-700 text-red-200 border border-red-200 p-4" 
     >
         {{errorMessage}}
     </div>
@@ -14,7 +14,7 @@
         <input
             v-model="form.projectName"
             type="text"
-            class="w-full mt-1 p-2 border rounded-md bg-gray-800 text-white"
+            class="w-full mt-1 p-2 border rounded-md bg-gray-800 text-white w-fit"
             placeholder="Enter project name"
         />
     </div>
