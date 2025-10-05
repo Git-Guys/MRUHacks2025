@@ -8,26 +8,25 @@
             v-model:events="eventStore.events" 
             :events-on-month-view="true" 
             :events-on-week-view="true" 
-            :editable-events="{ create: false, resize: true }"
+            :editable-events="{ title: true, drag: true,  create: true, resize: true }"
             @event-click="(e) => handleClick(e)"
+            @event-create="(e) => createEvent(e)"
             view="month" 
             :views="['week', 'month', 'year']" 
             :time="false"
             :dark="true"
         >
             <!-- Override event template for month view -->
-          <template #event="{ event }">
-            <div class="px-1 text-sm font-semibold min-h-12">
-              {{ event.title }}
-            </div>
-          </template>
+            <template #event="{ event }">
+                <textarea v-model="event.title" class="px-1 text-sm font-semibold min-h-12"></textarea>
+            </template>
 
-          <!-- Override event template for week view -->
-          <template #event-week="{ event }">
-            <div class="truncate px-1 text-sm font-semibold min-h-12">
-              {{ event.title }}
-            </div>
-          </template>
+            <!-- Override event template for week view -->
+            <template #event-week="{ event }">
+                <div class="truncate px-1 text-sm font-semibold min-h-12">
+                    {{ event.title }}
+                </div>
+            </template>
         </vue-cal>
         <EventEdit v-if="selectedEvent != null" v-model:event="selectedEvent" ></EventEdit>
     </div>
@@ -48,7 +47,6 @@
     const router = useRouter();
     const eventStore = useEventStore();
     const selectedEvent = ref(null)
-    console.log(eventStore.events)
     
     const handleClick = (event) => {
         const index = eventStore.events.findIndex(e => event.event.id === e.id)
@@ -56,9 +54,23 @@
             //selectedEvent.value = event.event; 
         }
     }
-    if (eventStore.events.length == 0) {
-    router.push("/")
+    const createEvent = ({ event, resolve }) => {
+        let start = event.start;
+        let end = event.end;
+        start.setHours(23, 0, 0, 0)
+        end.setHours(23, 0, 0, 0)
+        const newEvent = {
+            title: event.title,
+            start: start,
+            end: end
+        }
+        eventStore.addEvent(newEvent)
+        resolve(eventStore.events[eventStore.events.length - 1])
     }
+    if (eventStore.events.length == 0) {
+        router.push("/")
+    }
+
     const makeICS = () => {
         const text =  generateICS(eventStore.events)
         const filename = eventStore.projectName || "events.ics";

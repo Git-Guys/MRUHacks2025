@@ -14,7 +14,7 @@ export const useEventStore = defineStore('eventStore', () => {
   }
 
   function addEvent(event) {
-    if (!event.id) event.id = Date.now()
+    if (!event.id) event.id = events.length;
     events.value.push(event)
   }
   function parseEvents(newEvents)  {
@@ -33,7 +33,6 @@ export const useEventStore = defineStore('eventStore', () => {
         })
     }
     events.value = taskAcc; 
-    console.log(events)
   }
 
   function updateEvent(id, updated) {
