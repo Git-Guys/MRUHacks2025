@@ -3,6 +3,8 @@ from docx import Document
 import fitz
 import io
 import os
+from image_conversion import convert_any_to_png
+from Image_Processor import extract_text_from_image
 
 def parse_file(file) -> str:
     """
@@ -45,6 +47,13 @@ def parse_file(file) -> str:
             return data.decode("utf-8")
         except UnicodeDecodeError:
             return data.decode("latin-1", errors="replace")
+
+    # IMAGES
+    elif filename.endswith(".png") or filename.endswith(".jpg") or \
+        filename.endswith(".jpeg") or filename.endswith(".heic") or \
+        filename.endswith(".heif") or filename.endswith(".bmp") or \
+        filename.endswith(".tiff") or filename.endswith(".webp"):
+            return extract_text_from_image(convert_any_to_png(file))["text"]
 
     else:
         raise ValueError("Unsupported file type. Use .docx, .pdf, or .txt.")
