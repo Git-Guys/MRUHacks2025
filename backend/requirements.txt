@@ -13,6 +13,7 @@ docx==0.2.4
 etelemetry==0.3.1
 filelock==3.19.1
 Flask==3.1.2
+groq==0.32.0
 httplib2==0.31.0
 icalendar==6.3.1
 idna==3.10
@@ -51,4 +52,5 @@ typing_extensions==4.15.0
 tzdata==2025.2
 urllib3==2.5.0
 Werkzeug==3.1.3
+
 
