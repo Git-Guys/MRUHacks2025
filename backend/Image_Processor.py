@@ -18,7 +18,7 @@ def extract_text_from_image(image_path=None):
         Exception: If OCR operation fails
     """
     # Get credentials
-    endpoint = os.getenv("ENDPOINT")
+    endpoint = os.getenv("AZURE_ENDPOINT")
     key = os.getenv("AZURE_KEY")
 
     # Create client
