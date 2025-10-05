@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 export const useEventStore = defineStore('eventStore', () => {
   // --- State ---
   const events = ref([])
-
+  const projectName = ref("")
   // --- Getters ---
   const eventCount = computed(() => events.value.length)
 

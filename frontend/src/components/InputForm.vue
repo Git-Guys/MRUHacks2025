@@ -175,6 +175,7 @@ async function submitForm() {
     }
 
     const result = await res.json()
+    eventStore.projectName = projectName;
     eventStore.parseEvents(result) 
     console.log('✅ Upload success:', result)
 

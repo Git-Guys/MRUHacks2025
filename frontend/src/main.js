@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter} from 'vue-router'
 import { createPinia } from 'pinia'
 import HomeView from './routes/HomeView.vue'
 import CalendarView from './routes/CalendarView.vue'
@@ -12,7 +12,7 @@ const routes = [
 ]
 
 export const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 })
 const pinia = createPinia()

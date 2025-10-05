@@ -1,6 +1,9 @@
 <template>
-    <button @click="makeICS" class="text-white bg-violet-900 p-2 rounded">test</button>
     <div class="flex">
+        <Header class="flex-1"></Header>
+        <button @click="makeICS" class="text-white bg-violet-950 hover:bg-blue-950 p-2 rounded w-min">Download Calendar file</button>
+    </div>
+    <div class="w-screen">
         <vue-cal 
             v-model:events="eventStore.events" 
             :events-on-month-view="true" 
@@ -40,6 +43,7 @@
     import { VueCal } from 'vue-cal'
     import 'vue-cal/style'
     import { generateICS } from "../lib/calendar.js"
+
     const eventStore = useEventStore();
     const selectedEvent = ref(null)
     console.log(eventStore.events)
@@ -47,13 +51,13 @@
     const handleClick = (event) => {
         const index = eventStore.events.findIndex(e => event.event.id === e.id)
         if(index != -1) {
-            selectedEvent.value = event.event; 
+            //selectedEvent.value = event.event; 
         }
     }
 
     const makeICS = () => {
         const text =  generateICS(eventStore.events)
-        const filename = "events.ics";
+        const filename = eventStore.projectName || "events.ics";
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/calendar;charset=utf-8,' + encodeURIComponent(text));
         element.setAttribute('download', filename);
