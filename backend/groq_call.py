@@ -50,7 +50,7 @@ End Date: {input_json['end_date']}
 
 Requirements:
 1. Create a number of tasks appropriate to size and scope of the project and the comlexity of each given task.
-2. No minimums or maximums for task amount
+2. Maximum of 2 tasks per week
 2. Each task needs a name and number of days
 3. Days must sum to EXACTLY {total_days}
 4. Tasks must be in chronological order
@@ -60,6 +60,7 @@ Requirements:
 8. Avoid grandular tasks
 9. Keep tasks mid to high level depending on the scope and time of the project
 10. Use the duration and the scope of the project to determine the number of tasks
+11. Do NOT assume the method of execution unless told to in the description
 
 Return ONLY this JSON format with NO markdown, NO explanations:
 [
