@@ -90,7 +90,7 @@ CRITICAL: The sum of all days values must equal exactly {total_days}. Start with
             ],
             model="meta-llama/llama-4-maverick-17b-128e-instruct",
             temperature=0.2,
-            max_tokens=20000,
+            max_tokens=8192,
         )
         
         # Get response
