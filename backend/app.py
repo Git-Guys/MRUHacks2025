@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from icalendar import Calendar, Event
 from File_Parser import parse_file
 from groq_call import groq_call
+import os
 
 app = Flask(__name__)
 
@@ -49,4 +50,5 @@ def intake_user_input():
     return jsonify(llm_response)
 
 if __name__ == "__main__":
-    app.run(port = 8000)
+    port = int(os.environ.get("PORT", 5000))  # Render sets PORT
+    app.run(host="0.0.0.0", port=port)
