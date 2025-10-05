@@ -1,47 +1,28 @@
-let baseEvents = [
-  {
-    title: 'Write project proposal',
-    start: '2025-10-06',
-    end: '2025-10-06',
-  },
-  {
-    title: 'Design UI mockups',
-    start: '2025-10-08',
-    end: '2025-10-08',
-  },
-  {
-    title: 'Backend API prototype',
-    start: '2025-10-10',
-    end: '2025-10-10',
-  },
-  {
-    title: 'Team review meeting',
-    start: '2025-10-12',
-    end: '2025-10-12',
-  },
-  {
-    title: 'Finalize documentation',
-    start: '2025-10-15',
-    end: '2025-10-15',
-  },
-  {
-    title: 'Deployment deadline',
-    start: '2025-10-20',
-    end: '2025-10-20',
+export function generateICS(events) {
+  const formatDate = (date) => {
+    // Converts JS date → ICS datetime format (UTC)
+    const d = new Date(date)
+    return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
   }
-]
 
-const dateEvents = () => {
-    return events.map(task => {
-        const start = new Date(task.dueDate)
-        const end = new Date(start)
-        end.setHours(start.getHours() + 1) 
-        return {
-            title: task.name,
-            start: start.toISOString(),
-            end: end.toISOString()
-        }
-    })
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//YourApp//EN',
+  ]
+
+  for (const event of events) {
+    lines.push('BEGIN:VEVENT')
+    lines.push(`UID:${crypto.randomUUID()}`)
+    lines.push(`DTSTAMP:${formatDate(new Date())}`)
+    lines.push(`DTSTART:${formatDate(event.start)}`)
+    lines.push(`DTEND:${formatDate(event.end)}`)
+    lines.push(`SUMMARY:${event.title}`)
+    if (event.description) lines.push(`DESCRIPTION:${event.description}`)
+    lines.push('END:VEVENT')
+  }
+
+  lines.push('END:VCALENDAR')
+
+  return lines.join('\r\n')
 }
-baseEvents = dateEvents(baseEvents)
-export {baseEvents}

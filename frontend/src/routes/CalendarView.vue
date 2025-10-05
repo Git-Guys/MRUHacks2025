@@ -1,4 +1,5 @@
 <template>
+    <button @click="makeICS" class="text-white bg-violet-900 p-2 rounded">test</button>
     <div class="flex">
         <vue-cal 
             v-model:events="eventStore.events" 
@@ -25,9 +26,10 @@
             </div>
           </template>
         </vue-cal>
-        <EventEdit v-if="selectedEvent != -1" v-model:index="selectedEvent" ></EventEdit>
+        <EventEdit v-if="selectedEvent != null" v-model:event="selectedEvent" ></EventEdit>
     </div>
 </template>
+
 <script setup>
     import { ref, computed, defineModel} from "vue"
 
@@ -37,36 +39,31 @@
     import { storeToRefs } from "pinia"
     import { VueCal } from 'vue-cal'
     import 'vue-cal/style'
-
-
-    const eventStore= useEventStore();
-    const selectedEvent = ref(-1)
-    const tasks = ref([
-        { id: 0, name: "Write project proposal", dueDate: new Date(2025, 9, 6, 9, 0), description: "Draft and send" },
-        { id: 1, name: "Design UI mockups", dueDate: new Date(2025, 9, 8, 14, 30), description: "Create screens" },
-        { id: 2, name: "Backend API prototype", dueDate: new Date(2025, 9, 10, 11, 0), description: "Build endpoints" }
-    ]);
-
-    // Convert to vue-cal format for initial events
-    const initialEvents = tasks.value.map(task => {
-        const start = new Date(task.dueDate)
-        const end = new Date(start)
-        end.setHours(start.getHours() + 1)
-        return {
-            id: task.id,
-            title: task.name,
-            start: start,
-            end: end
+    import { generateICS } from "../lib/calendar.js"
+    const eventStore = useEventStore();
+    const selectedEvent = ref(null)
+    console.log(eventStore.events)
+    
+    const handleClick = (event) => {
+        const index = eventStore.events.findIndex(e => event.event.id === e.id)
+        if(index != -1) {
+            selectedEvent.value = event.event; 
         }
-    });
-    eventStore.events = initialEvents
-
-const handleClick = (event) => {
-    console.log(event.event.id)
-    const index = eventStore.events.findIndex(e => event.event.id === e.id)
-    if(index != -1) {
-        selectedEvent.value = index; 
     }
-}
+
+    const makeICS = () => {
+        const text =  generateICS(eventStore.events)
+        const filename = "events.ics";
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/calendar;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
 
 </script>
