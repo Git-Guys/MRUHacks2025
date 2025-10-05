@@ -18,7 +18,7 @@
         >
             <!-- Override event template for month view -->
             <template #event="{ event }">
-                <textarea v-model="event.title" class="px-1 text-sm font-semibold min-h-12"></textarea>
+                <textarea v-model="event.title" class="px-1 text-sm font-semibold min-h-12 overflow-hidden"></textarea>
             </template>
 
             <!-- Override event template for week view -->

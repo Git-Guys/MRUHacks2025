@@ -11,7 +11,12 @@ export function generateICS(events) {
     'PRODID:-//YourApp//EN',
   ]
 
+
   for (const event of events) {
+    let start = event.start
+    let end = event.end 
+    start.setHours(23, 0, 0, 0, 0)
+    end.setHours(23, 30, 0, 0, 0)
     lines.push('BEGIN:VEVENT')
     lines.push(`UID:${crypto.randomUUID()}`)
     lines.push(`DTSTAMP:${formatDate(new Date())}`)
