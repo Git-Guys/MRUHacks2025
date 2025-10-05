@@ -96,7 +96,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-
+import { useEventStore } from "../stores/events.js"
 const router = useRouter()
 const fileInput = ref(null)
 const dragOver = ref(false)
@@ -110,7 +110,7 @@ const form = ref({
   description: '',
   file: null,
 })
-
+const eventStore = useEventStore();
 // 🔍 Validate file type
 function validateFile(file) {
   const allowed = [
@@ -151,12 +151,11 @@ function handleDrop(event) {
 async function submitForm() {
   try {
     const { projectName, startDate, endDate, description, file } = form.value
-
     const formData = new FormData()
     formData.append('projectName', projectName)
     formData.append('startDate', startDate)
     formData.append('endDate', endDate)
-
+    console.log(formData) 
     if (!file && description) {
       formData.append('description', description)
     }
@@ -165,7 +164,7 @@ async function submitForm() {
       formData.append('file', file)
     }
 
-    const res = await fetch('/api/upload', {
+    const res = await fetch('https://mruhacks2025.onrender.com/test', {
       method: 'POST',
       body: formData,
     })
@@ -176,6 +175,7 @@ async function submitForm() {
     }
 
     const result = await res.json()
+    eventStore.parseEvents(result) 
     console.log('✅ Upload success:', result)
 
     // Navigate to calendar route

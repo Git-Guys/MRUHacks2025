@@ -17,6 +17,24 @@ export const useEventStore = defineStore('eventStore', () => {
     if (!event.id) event.id = Date.now()
     events.value.push(event)
   }
+  function parseEvents(newEvents)  {
+    const parsedEvents = newEvents.tasks;
+    console.log(parsedEvents) 
+    const taskAcc = [];
+
+    for(let i = 0; i < parsedEvents.length; i++){
+        const start = new Date(parsedEvents[i].deadline)
+        const end = new Date(start)
+        end.setHours(start.getHours() + 1)
+        taskAcc.push({
+            title: parsedEvents[i].task,
+            start: start,
+            end: end
+        })
+    }
+    events.value = taskAcc; 
+    console.log(events)
+  }
 
   function updateEvent(id, updated) {
     const index = events.value.findIndex(e => e.id === id)
@@ -37,6 +55,7 @@ export const useEventStore = defineStore('eventStore', () => {
   return {
     events,
     eventCount,
+    parseEvents,
     setEvents,
     addEvent,
     updateEvent,
