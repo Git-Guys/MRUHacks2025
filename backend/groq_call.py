@@ -40,7 +40,11 @@ class GroqTaskBreakdown:
         total_days = (end - start).days
         
         # Create prompt
-        prompt = f"""Break down this project into 5-10 specific, actionable tasks with day allocations.
+        prompt = f"""
+
+# CACHEBUSTER: {random.randint(1000, 9999)}
+        
+Break down this project into specific, actionable tasks with day allocations.
 
 Project: {input_json['project_name']}
 Description: {input_json['project_description']}
