@@ -57,6 +57,8 @@ Requirements:
 5. Be realistic with time allocations
 6. Strictly adhere to the requirements of the project 
 7. Do not assume any deliverables exist outside of the provided project description
+8. Avoid grandular tasks
+9. Keep tasks mid to high level depending on the scope and time of the project
 
 Return ONLY this JSON format with NO markdown, NO explanations:
 [
