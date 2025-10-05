@@ -117,6 +117,15 @@ function validateFile(file) {
     'application/pdf',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'text/plain',
+    'image/jpeg',        
+    'image/png',         
+    'image/gif',         
+    'image/webp',        
+    'image/bmp',         
+    'image/x-icon',      
+    'image/tiff',        
+    'image/heic',        
+    'image/heif'        
   ]
   if (!allowed.includes(file.type)) {
     alert('Only PDF, DOCX, or TXT files are allowed.')
