@@ -55,11 +55,7 @@
       <input
         ref="fileInput"
         type="file"
-        accept="
-            .pdf,.docx,.txt, .png, 
-            .jpg, .jpeg, .heic, .heic
-            .bmp .tiff .webp
-        "
+        accept=".pdf,.docx,.txt,.png,.jpg,.jpeg,.heic,.heic,.bmp,.tiff,.webp"
         @change="handleFileUpload"
         class="hidden"
       />
