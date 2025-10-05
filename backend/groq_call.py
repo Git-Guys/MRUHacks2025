@@ -59,6 +59,7 @@ Requirements:
 7. Do not assume any deliverables exist outside of the provided project description
 8. Avoid grandular tasks
 9. Keep tasks mid to high level depending on the scope and time of the project
+10. Use the duration and the scope of the project to determine the number of tasks
 
 Return ONLY this JSON format with NO markdown, NO explanations:
 [
