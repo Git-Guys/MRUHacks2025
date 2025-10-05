@@ -3,8 +3,10 @@ from icalendar import Calendar, Event
 from File_Parser import parse_file
 from groq_call import groq_call
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.post("/test")
